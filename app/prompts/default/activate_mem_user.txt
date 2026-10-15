@@ -1,0 +1,19 @@
+# 客户与销售的在线聊天记录
+{%- for item in chat_history %}
+{{ item -}}
+{% endfor %}
+
+# 客户购买订单信息
+{{ order_info }}
+
+# 订单商品详情
+{{ good_info }}
+
+# 销售备注的客户信息
+{{ customer_info }}
+
+# 当前日期
+{{ current_day }}
+
+# 可能的宝宝列表
+{{ child_info }}

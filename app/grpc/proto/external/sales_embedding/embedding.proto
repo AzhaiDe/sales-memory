@@ -1,0 +1,22 @@
+syntax = "proto3";
+
+package sales_embedding;
+
+service Embedding {
+  rpc GetEmbeddings (EmbeddingRequest) returns (EmbeddingResponse);
+}
+
+message EmbeddingRequest {
+  repeated string input = 1;
+  string model = 2;
+}
+
+message EmbeddingData {
+  repeated float embedding = 1;
+  int32 index = 2;
+}
+
+message EmbeddingResponse {
+  repeated EmbeddingData data = 1;
+  string model = 2;
+}

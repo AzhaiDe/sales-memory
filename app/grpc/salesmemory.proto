@@ -1,0 +1,62 @@
+syntax = "proto3";
+
+package salesmemory;
+
+service MemoryService {
+  rpc AddMemories (AddMemoryRequests) returns (AddMemoryResponses);
+  rpc AddMemory (AddMemoryRequest) returns (AddMemoryResponse);
+  rpc SearchMemory (SearchMemoryRequest) returns (SearchMemoryResponse);
+}
+
+message AddMemoryRequests {
+  repeated AddMemoryRequest requests = 1;
+}
+
+message AddMemoryResponses {
+  repeated AddMemoryResponse response = 1;
+}
+
+message AddMemoryRequest {
+  string tenant_id = 1;
+  string account_id = 2;
+  string contact_id = 3;
+  repeated Context contexts = 4;
+  int32 type = 5;
+  map<string, string> external_info = 6;
+}
+
+message Context {
+  string content = 1;
+  string msgType = 2;
+  string role = 3;
+  string url = 4;
+  int64 msgTime = 5;
+}
+
+message AddMemoryResponse {
+  repeated Memory memory = 1;
+}
+
+message SearchMemoryRequest {
+  string tenant_id = 1;
+  string account_id = 2;
+  string contact_id = 3;
+  repeated Context contexts = 4;
+  string latest_msg = 5;
+  string category = 6;
+  string theme = 7;
+  int32 type = 8;
+  int32 mode = 9;
+}
+
+message Memory {
+  int64 id = 1;
+  string category = 2;
+  string theme = 3;
+  repeated string fact = 4;
+  int64 occur_time = 5;
+}
+
+message SearchMemoryResponse {
+  repeated Memory memory = 1;
+}

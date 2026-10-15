@@ -1,0 +1,85 @@
+BASE_DIR = "."
+
+[LOG]
+PATH = "./logs"
+LEVEL = "INFO"
+MAX_SIZE = 100
+KEEP_DAYS = 7
+COMPRESS = false
+ROTATION = ""
+MOD = "console"
+AUTOGEN_LOGGING = "normal"
+
+[SERVER]
+HOST = "0.0.0.0"
+PORT = 8686
+WORKERS = 1
+
+[CONSUL]
+HOST = "localhost"
+PORT = 8500
+TYPE = "json"
+
+[CONSUL.CONFIG]
+ENABLED = false
+PREFIX = "sales-memory"
+DEFAULT_CONTEXT = "application"
+REGISTER_TIMEOUT = 5
+CHECK_TIMEOUT = 5
+
+[CONSUL.DISCOVERY]
+REGISTER = false
+INSTANCE_ID = ""
+SERVICE_NAME = "sales-memory"
+IP_ADDRESS = ""
+ENABLE_SERVICE_NAME = ""
+
+[PRIVATE_GPT]
+NAME = "default"
+API_BASE = "https://api.openai.com/v1"
+API_KEY = "YOUR_API_KEY_HERE"
+MODEL_NAME = "gpt-4o-mini"
+
+[ACTIVATE_GPT]
+NAME = "qwq32b"
+API_BASE = "https://api.openai.com/v1"
+API_KEY = "YOUR_API_KEY_HERE"
+MODEL_NAME = "gpt-4o-mini"
+
+[MARIADB]
+HOST = "localhost"
+PORT = 3306
+USERNAME = "root"
+PASSWORD = "YOUR_DB_PASSWORD"
+DATABASE = "sales_memory"
+
+[REDIS]
+HOST = "localhost"
+PORT = 6379
+DB = 0
+USERNAME = ""
+PASSWORD = ""
+
+[MILVUS]
+HOST = "localhost"
+PORT = 19530
+USER = "root"
+PASSWORD = "Milvus"
+DATABASE = "default"
+COLLECTION_PREFIX = "memory_"
+POOL_SIZE = 100
+
+[GRPC_CLIENT]
+SALES_EMBEDDING = "localhost:50051"
+SALES_RAG = "localhost:50052"
+
+[SCHEDULE]
+ENABLE = false
+
+[SCHEDULE.DELETE_EXPIRED_MEMORY]
+TRIGGER = "cron"
+PARAM = {hour = 2, minute = 0}
+
+[TEST]
+ENABLE = true
+OUTPUT_FILE = "./output/test_results.xlsx"

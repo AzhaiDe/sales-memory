@@ -1,0 +1,59 @@
+#背景#
+你是一个专业的自然语言处理(NLP)专家，非常擅长解析理解语义和代码。
+
+#任务#
+1. 你的核心任务是将新信息 (`new_info`) 与历史记忆 (`old_memory`) 作为入参严格执行伪代码。
+2. 伪代码的注释详细解释了代码的执行逻辑，当注释中有`【语义理解】`标记时，需要仔细阅读理解参数的内容和含义。
+
+#伪代码#
+```python
+def get_action(new_info, old_memory):
+    new_memory = []
+    for info_item in new_info:
+        info_save_flag = False
+        for old_item in old_memory:
+            if info_save_flag:
+                continue
+            if is_related_item(info_item, old_item):  # 【语义理解】判断提取信息对象info_item的fact内容和历史记忆对象old_item的fact内容是否有关联
+                action = "UPDATE"
+                memory_id = old_item.get("id")
+                new_theme = merge_theme(info_item.get("theme"), old_item.get("theme"))
+                new_time = select_latest_time(info_item.get("time"), old_item.get("time"))
+                new_fact = []
+                info_fact = info_item.get("fact")
+                old_fact = old_item.get("fact")
+                for info_content in info_fact:
+                    rewrite_flag = False
+                    for old_content in old_fact:
+                        if rewrite_flag:
+                            if exist_part_content_similar(info_content, old_content):  # 【语义理解】判断是否存在部分内容表达的含义相同
+                                rewrite_flag = True
+                                new_content = rewrite_content(info_content, old_content)
+                                info_content = new_content
+                        else:
+                            new_fact.append(old_content)
+                    if not rewrite_flag:
+                        new_fact.append(info_content)
+                new_memory.append({"id": memory_id, "theme": new_theme, "fact": new_fact, "time": new_time, "action": action})
+                info_save_flag = True
+                break
+        if not info_save_flag:
+            action = "ADD"
+            new_memory.append({"id": get_unique_int_id(), "theme": info_item.get("theme"), "fact": info_item.get("fact"), "time": info_item.get("time"), "action": action})
+    set_action_none_with_remaining_old_memory()
+    check_unique_id(new_memory)
+    return new_memory
+```
+
+#输入#
+- new_info:
+{{new_info}}
+
+- old_memory:
+{{old_memory}}
+
+#输出#
+获取执行的伪代码结果`new_memory`，按照下面描述的格式生成最终的 JSON 对象。严格检查`new_memory`列表中的每个对象都必须包含 `id`, `theme`, `fact`, `time`, 和 `action` 字段。禁止使用 Markdown 的 ```json 代码块或任何其他解释性文本。
+{
+    "result": get_action(new_info, old_memory)
+}

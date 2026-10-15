@@ -1,0 +1,29 @@
+# Virtual env & Python
+.venv/
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# Secrets & local config
+.env
+.env.*
+!.env.example
+settings.toml
+*.pem
+*.key
+credentials*
+
+# Runtime / outputs
+logs/
+output/
+*.xlsx
+*.log
+
+# IDE / OS
+.idea/
+.vscode/
+.DS_Store
+*.swp
