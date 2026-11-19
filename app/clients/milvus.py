@@ -19,7 +19,7 @@ class MilvusClient(BaseClient):
     def __init__(self):
         super().__init__()
         self._connected = False
-        self._collections: Dict[str, Collection] =
+        self._collections: Dict[str, Collection] = {}
 
     @classmethod
     def get_instance(cls) -> 'MilvusClient':

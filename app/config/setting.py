@@ -49,6 +49,12 @@ class PrivateGPTParam:
         self.model_name = settings.PRIVATE_GPT.MODEL_NAME
 
 
+class EmbeddingParam:
+    def __init__(self):
+        self.model_name = settings.EMBEDDING.MODEL_NAME
+        self.dimensions = settings.EMBEDDING.DIMENSIONS
+
+
 class QwQ32BGPTParam:
     def __init__(self):
         self.name = settings.ACTIVATE_GPT.NAME
@@ -117,6 +123,7 @@ test_param = TestParam()
 
 private_gpt_param = PrivateGPTParam()
 qwq32b_gpt_params = QwQ32BGPTParam()
+embedding_param = EmbeddingParam()
 
 model_param_list = [private_gpt_param, qwq32b_gpt_params]
 model_param_dict = {param.name: param for param in model_param_list}

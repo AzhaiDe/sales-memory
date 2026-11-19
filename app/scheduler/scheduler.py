@@ -34,3 +34,6 @@ class SchedulerTask(object, metaclass=Singleton):
 
     def stop(self):
         self.scheduler.shutdown()
+
+
+MemoryScheduler = SchedulerTask

@@ -3,7 +3,6 @@ from typing import Dict, Type
 
 from autogen_core.models import ChatCompletionClient
 from autogen_ext.models.openai import OpenAIChatCompletionClient
-from transformers import AutoTokenizer
 
 from app.config.setting import private_gpt_param, model_param_dict, base_dir
 from app.models.model_config import ModelClientConfig, PrivateGPTConfig
@@ -39,7 +38,10 @@ class ModelClientFactory:
     def create_client(cls, config: ModelClientConfig) -> ChatCompletionClient:
         model_params = config.get_model_params()
         client_class = cls._client_types["openai"]
-        return client_class(**model_params)
+        client = client_class(**model_params)
+        # AutoGen 只保留 OpenAI 标准参数，百炼的思考开关要写回实际请求参数。
+        client._create_args["extra_body"] = {"enable_thinking": False}
+        return client
 
     @classmethod
     def get_client(cls, config: ModelClientConfig) -> ChatCompletionClient:
@@ -57,7 +59,8 @@ class ModelClientFactory:
         return cls.get_client(config)
 
     @classmethod
-    def get_tokenizer(cls, config: ModelClientConfig) -> AutoTokenizer:
+    def get_tokenizer(cls, config: ModelClientConfig):
+        from transformers import AutoTokenizer
         model_name = config.get_model_name()
         if model_name in cls._tokenizer_instances:
             return cls._tokenizer_instances[model_name]

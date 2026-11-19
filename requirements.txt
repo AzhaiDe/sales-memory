@@ -21,4 +21,4 @@ python-dotenv>=1.0.0
 aiohttp>=3.9.0
 python-consul>=1.1.0
 protobuf>=4.25.0
-sentence-transformers>=3.0.0
+autogen-agentchat==0.4.9

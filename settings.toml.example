@@ -36,15 +36,19 @@ ENABLE_SERVICE_NAME = ""
 
 [PRIVATE_GPT]
 NAME = "default"
-API_BASE = "https://api.openai.com/v1"
+API_BASE = "https://dashscope.aliyuncs.com/compatible-mode/v1"
 API_KEY = "YOUR_API_KEY_HERE"
-MODEL_NAME = "gpt-4o-mini"
+MODEL_NAME = "qwen3.8-flash"
 
 [ACTIVATE_GPT]
 NAME = "qwq32b"
-API_BASE = "https://api.openai.com/v1"
+API_BASE = "https://dashscope.aliyuncs.com/compatible-mode/v1"
 API_KEY = "YOUR_API_KEY_HERE"
-MODEL_NAME = "gpt-4o-mini"
+MODEL_NAME = "qwen3.8-flash"
+
+[EMBEDDING]
+MODEL_NAME = "qwen3.7-text-embedding"
+DIMENSIONS = 1024
 
 [MARIADB]
 HOST = "localhost"
@@ -76,9 +80,13 @@ SALES_RAG = "localhost:50052"
 [SCHEDULE]
 ENABLE = false
 
-[SCHEDULE.DELETE_EXPIRED_MEMORY]
-TRIGGER = "cron"
-PARAM = {hour = 2, minute = 0}
+[SCHEDULE.DELETE_EXPIRED_MEMORY.TRIGGER]
+hour = 2
+minute = 0
+
+[SCHEDULE.DELETE_EXPIRED_MEMORY.PARAM]
+"健康" = 30
+"事件" = 7
 
 [TEST]
 ENABLE = true

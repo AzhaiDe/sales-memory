@@ -27,9 +27,10 @@ class PromptManager:
 
     def load_prompt(self, prompt_name, synopsis: dict[str, str] = dict()) -> str:
         custom_file: str = os.path.join(self._prompt_path, "{}.txt".format(prompt_name))
+        default_dir = os.path.join(os.path.dirname(self._prompt_path), "default")
         if os.path.isfile(custom_file):
             file: str = custom_file
         else:
-            file: str = os.path.join(self._prompt_path, "{}.txt".format(prompt_name))
+            file = os.path.join(default_dir, "{}.txt".format(prompt_name))
         self._prompt = _render_file(file, synopsis)
         return self._prompt

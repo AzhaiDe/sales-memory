@@ -12,7 +12,7 @@ from app.flow.activatememoryflow import search_memory_flow as activate_search_me
 from app.flow.onlinememoryflow import add_memory_flow as online_add_memory_flow
 from app.flow.onlinememoryflow import search_memory_flow as online_search_memory_flow
 from app.grpc.proto.internal.salesmemory_pb2 import AddMemoryRequest, AddMemoryResponse, SearchMemoryRequest, \
-    AddMemoryRequests, AddMemoryResponses
+    SearchMemoryResponse, AddMemoryRequests, AddMemoryResponses
 from app.grpc.proto.internal.salesmemory_pb2_grpc import MemoryServiceServicer
 from app.schemas.body import AddMemoryResult, SearchMemoryResult
 
@@ -63,12 +63,12 @@ class MemoryService(MemoryServiceServicer):
                 context.set_code(res.status_code)
                 context.set_details(res.error_msg)
                 logger.error(f'request have done, tenant_id={request.tenant_id}, error={str(res.error_msg)}')
-                return AddMemoryResponse()
-            response = AddMemoryResponse(memory=res.memory)
+                return SearchMemoryResponse()
+            response = SearchMemoryResponse(memory=res.memory)
             logger.info(f'request have done, tenant_id={request.tenant_id}, contact_id={request.contact_id}')
             return response
         except Exception as e:
             context.set_code(ErrorCode.UNKNOWN_ERROR.code)
             context.set_details(str(e))
             logger.error(f'request failed, tenant_id={request.tenant_id}, error={str(e)}')
-            return AddMemoryResponse()
+            return SearchMemoryResponse()
